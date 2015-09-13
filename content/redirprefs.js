@@ -69,10 +69,10 @@ function onLoad() {
 	} catch (e) {}
 	try {
 		document.getElementById("textNewReplyToHeader").value = (typeof(jsonPrefs.newReplyToHeader) == "undefined") ? prefs.getComplexValue("newReplyToHeader",Ci.nsISupportsString).data : jsonPrefs.newReplyToHeader; // read utf8 string preference
-	} catch (e) {}/**/	
+	} catch (e) {}/**/
 }
 
-function onAccept() { 
+function onAccept() {
 	let jsonPrefs = new Object();;
 	try {
 		jsonPrefs.keepOriginalDate = document.getElementById("checkKeepOriginalDate").getAttribute("checked");
@@ -104,7 +104,7 @@ function onAccept() {
 
 	let rootHbox = window.arguments[0];
 	jsonPrefs.redirectTo = rootHbox.firstChild.value;
-		  	
+
 	rawValue = JSON.stringify(jsonPrefs);
 	rootHbox.setAttribute("value", rawValue);
 	rootHbox.value = rawValue;/**/

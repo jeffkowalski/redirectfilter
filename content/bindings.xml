@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- 
+<!--
 /*
  ***** BEGIN LICENSE BLOCK *****
 *
@@ -34,7 +34,7 @@
 					this.textbox.value = jsonPrefs.redirectTo;
 			} catch(e) {
 				if (typeof(this.hbox.value) != "undefined")
-					this.textbox.value = this.hbox.value; // compatibility with previous version					
+					this.textbox.value = this.hbox.value; // compatibility with previous version
 			}
 			this.toolbarbutton.addEventListener("command", this.onCommand, false);
 			//this.textbox.addEventListener("change", this.onChange, false);

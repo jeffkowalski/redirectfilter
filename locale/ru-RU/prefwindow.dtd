@@ -1,4 +1,4 @@
-﻿<!ENTITY prefwindow.title "Настройки Redirect Filter">
+<!ENTITY prefwindow.title "Настройки Redirect Filter">
 <!ENTITY pane1.title "Настройки Redirect Filter">
 <!ENTITY defaultOptionsIntro "Это настроки по-умолчанию. Вы можете настроить каждый фильтр отдельно в окне редактора фильра.">
 <!ENTITY currentOptionsIntro "Это настройки текущего фильтра. Настройки по-умолчанию задаются в настройках дополнения.">

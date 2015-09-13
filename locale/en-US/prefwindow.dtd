@@ -1,4 +1,4 @@
-﻿<!ENTITY prefwindow.title "RedirectFilter options">
+<!ENTITY prefwindow.title "RedirectFilter options">
 <!ENTITY pane1.title "RedirectFilter options">
 <!ENTITY defaultOptionsIntro "It's default redirectfilter options. You can customize it in filter edit dialog.">
 <!ENTITY currentOptionsIntro "It's custom settings for redirect. You can choose defaults in addon setting dialog.">

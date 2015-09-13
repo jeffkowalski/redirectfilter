@@ -6,4 +6,3 @@
     <stringbundle id="redirectfilter-strings" src="chrome://redirectfilter/locale/redirectfilter.properties"/>
   </stringbundleset>
 </overlay>
-

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<!--
 /*
  ***** BEGIN LICENSE BLOCK *****
  *
@@ -22,7 +22,7 @@
 				<tab label="&tabHeadersSettings.label;" accesskey="&tabHeadersSettings.accesskey;"/>
 			</tabs>
 			<tabpanels>
-				<tabpanel id="mainsettingstab" orient="vertical">					
+				<tabpanel id="mainsettingstab" orient="vertical">
 					<checkbox id="checkCopyToSent"
 										  label="&checkCopyToSent.label;" accesskey="&checkCopyToSent.accesskey;"/>
 					<checkbox id="checkMarkAsForwarded"
