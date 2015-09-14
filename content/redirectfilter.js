@@ -301,7 +301,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
 				    //let newHdrs = new Object(); //Array of created message headers
 				    let newHdrs = proceedHeaders(wholeString.substring(0,bodyBeginingIndex));
 
-				    // lets complete MUST HAVE headers: Date, From, To, Resent-from
+				    // lets complete MUST HAVE headers: Date, From, To, Resent-From
 				    if (newHdrs['Date']==undefined) {
 					let nowDate = new Date();
 					newHdrs['Date'] = "Date: "+nowDate.toString().replace(/^(\w{3})\s(\w{3})\s(\d{2})\s(.*)GMT(.*)$/,"$1, $3 $2 $4$5"); // format date string the way it should be
@@ -312,8 +312,12 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
 				    if (newHdrs['To']==undefined) {
 					newHdrs['To'] = "To: "+mimeEncode(options["redirectTo"]);
 				    }
-				    if (newHdrs['Resent-from']==undefined) {
-					newHdrs['Resent-from'] = "Resent-from: "+msgIdentity.email;
+				    if (newHdrs['Resent-From']==undefined) {
+					newHdrs['Resent-From'] = "Resent-From: "+msgIdentity.email;
+				    }
+                                    // Resent-To will suppress GMail bcc to self
+				    if (newHdrs['Resent-To']==undefined) {
+					newHdrs['Resent-To'] = "Resent-To: "+msgIdentity.email;
 				    }
 
 				    // change Reply-To header if option is set
