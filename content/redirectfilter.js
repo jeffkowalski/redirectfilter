@@ -279,7 +279,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
 					getService(Ci.nsIProperties).
 					get("TmpD", Ci.nsIFile);
 				file.append("redirect.msg");
-				file.createUnique(Ci.nsIFile.NORMAL_FILE_TYPE, 0666);
+				file.createUnique(Ci.nsIFile.NORMAL_FILE_TYPE, 0600);
 
 
 				// Поток для записи в файл
@@ -288,7 +288,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
 
 				try {
 				    // write, create, truncate
-				    foStream.init(file, 0x02 | 0x08 | 0x20, 0666, 0);
+				    foStream.init(file, 0x02 | 0x08 | 0x20, 0600, 0);
 
 				    let str = "";
 				    let strRest = "";
