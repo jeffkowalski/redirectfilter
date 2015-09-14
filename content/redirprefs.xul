@@ -29,9 +29,9 @@
 			  label="&checkMarkAsForwarded.label;" accesskey="&checkMarkAsForwarded.accesskey;"/>
 		<menulist id="mlistAccount" label="&mlistAccount.label;">
 		    <menupopup id='menupopupAccounts'>
-			<menuitem id="useFolderOwnerAccount" label="&mlistAccount.useFolderOwnerAccount.lable;" value="useFolderOwnerAccount" tooltiptext="&mlistAccount.useFolderOwnerAccount.description;"/>
-			<menuitem id="useDefaultAccount" label="&mlistAccount.useDefaultAccount.lable;" value="useDefaultAccount" tooltiptext="&mlistAccount.useDefaultAccount.description;"/>
-			<menuitem id="useMsgHdrAccount" label="&mlistAccount.useMsgHdrAccount.lable;" value="useMsgHdrAccount" tooltiptext="&mlistAccount.useMsgHdrAccount.description;"/>
+			<menuitem id="useFolderOwnerAccount" label="&mlistAccount.useFolderOwnerAccount.label;" value="useFolderOwnerAccount" tooltiptext="&mlistAccount.useFolderOwnerAccount.description;"/>
+			<menuitem id="useDefaultAccount" label="&mlistAccount.useDefaultAccount.label;" value="useDefaultAccount" tooltiptext="&mlistAccount.useDefaultAccount.description;"/>
+			<menuitem id="useMsgHdrAccount" label="&mlistAccount.useMsgHdrAccount.label;" value="useMsgHdrAccount" tooltiptext="&mlistAccount.useMsgHdrAccount.description;"/>
 		    </menupopup>
 		</menulist>
 	    </tabpanel>

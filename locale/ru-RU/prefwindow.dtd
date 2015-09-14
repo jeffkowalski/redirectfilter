@@ -10,11 +10,11 @@
 <!ENTITY checkMarkAsForwarded.label "Отметить письмо как пересланое">
 <!ENTITY checkMarkAsForwarded.accesskey "О">
 <!ENTITY mlistAccount.label "Учетная запись для отправки сообщения">
-<!ENTITY mlistAccount.useFolderOwnerAccount.lable "Использовать аккаунт-владелец папки с письмом (по-умолчанию)">
+<!ENTITY mlistAccount.useFolderOwnerAccount.label "Использовать аккаунт-владелец папки с письмом (по-умолчанию)">
 <!ENTITY mlistAccount.useFolderOwnerAccount.description "Берется первая учетная запись, корневая папка которой совпадает с корневой папкой обрабатываемой папки.">
-<!ENTITY mlistAccount.useDefaultAccount.lable "Использовать аккаунт по-умолчанию">
+<!ENTITY mlistAccount.useDefaultAccount.label "Использовать аккаунт по-умолчанию">
 <!ENTITY mlistAccount.useDefaultAccount.description "1) Инструменты-&gt;Параметры учетной записи-&gt;Действия для учетной записи-&gt;Использовать по-умолчанию 2)Инструменты-&gt;Параметры учетной записи-&gt;Сервер исходящей почты-&gt;По-умолчанию">
-<!ENTITY mlistAccount.useMsgHdrAccount.lable "Использовать аккаунт из заголовка письма">
+<!ENTITY mlistAccount.useMsgHdrAccount.label "Использовать аккаунт из заголовка письма">
 <!ENTITY mlistAccount.useMsgHdrAccount.description "При копировании-перемещении заголовок письма сохраняет информацию об учетной записи, на которую оно пришло изначально. Эта учетная запись и будет использоваться.">
 <!ENTITY tabMainSettings.label "Основные">
 <!ENTITY tabMainSettings.accesskey "н">
