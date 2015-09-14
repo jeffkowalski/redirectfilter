@@ -4,8 +4,7 @@
  * ***** END LICENSE BLOCK *****
  */
 
-const Cc = Components.classes;
-const Ci = Components.interfaces;
+const {classes: Cc, interfaces: Ci, results: Cr, utils: Cu} = Components;
 
 function createMenuItem(aLabel,aValue,aId) {
     const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
@@ -17,18 +16,19 @@ function createMenuItem(aLabel,aValue,aId) {
 }
 
 function onLoad() {
-    // insert accounts to list
-    let am = Components.classes["@mozilla.org/messenger/account-manager;1"].getService(Components.interfaces.nsIMsgAccountManager);
+    // insert managed accounts into drop-down list
+    let am = Cc["@mozilla.org/messenger/account-manager;1"].getService(Ci.nsIMsgAccountManager);
     let menupopupAccounts = document.getElementById("menupopupAccounts");
-    for (let i = 0; i < am.accounts.Count(); i++) { // go through all accounts and look for one that have root folder similar to first redirecting message root folder
-	let amacc = am.accounts.QueryElementAt(i, Ci.nsIMsgAccount);
+    for (let i = 0; i < am.accounts.length; i++) {
+	let amacc = am.accounts.queryElementAt(i, Ci.nsIMsgAccount);
 	try {
-	    let newItem = createMenuItem(amacc.defaultIdentity.identityName,amacc.key,amacc.key);
+	    let newItem = createMenuItem(amacc.defaultIdentity.identityName, amacc.key, amacc.key);
 	    menupopupAccounts.appendChild(newItem);
 	} catch (e) {}
     }
-    let prefs = Cc["@mozilla.org/preferences-service;1"].
-	    getService(Ci.nsIPrefService);
+
+    // select previous account preference
+    let prefs = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService);
     prefs = prefs.getBranch("extensions.redirectfilter.");
     try {
 	document.getElementById("mlistAccount").selectedItem = document.getElementById(prefs.getCharPref("account"));

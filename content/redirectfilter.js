@@ -1,9 +1,9 @@
 Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profile directory
 //Components.utils.import("resource://gre/modules/NetUtil.jsm"); // Набор функуий для удобной работы с потоками
 
-(function(){
-    const Cc = Components.classes;
-    const Ci = Components.interfaces;
+(function() {
+    const {classes: Cc, interfaces: Ci, results: Cr, utils: Cu} = Components;
+    var Application = Cc["@mozilla.org/steel/application;1"].getService(Ci.steelIApplication);
 
     let strings;
 
@@ -132,9 +132,9 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
 		}
 	    }
 
-	    let messenger = Components.classes["@mozilla.org/messenger;1"].createInstance(Components.interfaces.nsIMessenger);
+	    let messenger = Cc["@mozilla.org/messenger;1"].createInstance(Ci.nsIMessenger);
 
-	    let am = Components.classes["@mozilla.org/messenger/account-manager;1"].getService(Components.interfaces.nsIMsgAccountManager);
+	    let am = Cc["@mozilla.org/messenger/account-manager;1"].getService(Ci.nsIMsgAccountManager);
 
 	    let accountKey; // key of account (server) , from which send message
 	    let msgIdentity; // identity (user) from which message is sending
@@ -209,20 +209,20 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
 		// Все эти объекты нужн, чтобы исходное сообщение направить в поток
 		let MessageURI = msgHdr.folder.getUriForMsg(msgHdr);
 		let MsgService = messenger.messageServiceFromURI(MessageURI);
-		let messageStream = Components.classes["@mozilla.org/network/sync-stream-listener;1"].createInstance().QueryInterface(Components.interfaces.nsIInputStream);
+		let messageStream = Cc["@mozilla.org/network/sync-stream-listener;1"].createInstance().QueryInterface(Ci.nsIInputStream);
 
 		let wholeString = '';
 		let dataListener = {
 		    QueryInterface: function(aIID) {
-			if (aIID.equals(Components.interfaces.nsISupports) || aIID.equals(Components.interfaces.nsIStreamListener))
+			if (aIID.equals(Ci.nsISupports) || aIID.equals(Ci.nsIStreamListener))
 			    return this;
-			throw Components.results.NS_NOINTERFACE;
+			throw Cr.NS_NOINTERFACE;
 		    },
 		    onStartRequest: function() {
 			//consoleService.logStringMessage("COMPLETE onStartRequest");
 		    },
 		    onDataAvailable: function(req, context, inputStream, offset, count) {
-			let ScriptInputStream = Components.classes["@mozilla.org/scriptableinputstream;1"].createInstance().QueryInterface(Components.interfaces.nsIScriptableInputStream);
+			let ScriptInputStream = Cc["@mozilla.org/scriptableinputstream;1"].createInstance().QueryInterface(Ci.nsIScriptableInputStream);
 			ScriptInputStream.init(inputStream);
 			try {
 			    ScriptInputStream.available();
@@ -267,7 +267,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
 				//alert(from_email+" nnn "+msgHdrX[i].author);
 
 				//параметры пересылки
-				let cf = Components.classes["@mozilla.org/messengercompose/composefields;1"].createInstance(Components.interfaces.nsIMsgCompFields); // new message headers and parameters to
+				let cf = Cc["@mozilla.org/messengercompose/composefields;1"].createInstance(Ci.nsIMsgCompFields); // new message headers and parameters to
 
 				cf.from = msgHdrX.author;
 				cf.to = mimeEncode(options["redirectTo"]);
@@ -275,16 +275,16 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
 
 
 				// временный файл для сообщения, создаются уникальные файлы во временной папке на основе шаблона имени
-				let file = Components.classes["@mozilla.org/file/directory_service;1"]. // file to save new message TODO send files from memory
-					getService(Components.interfaces.nsIProperties).
-					get("TmpD", Components.interfaces.nsIFile);
+				let file = Cc["@mozilla.org/file/directory_service;1"]. // file to save new message TODO send files from memory
+					getService(Ci.nsIProperties).
+					get("TmpD", Ci.nsIFile);
 				file.append("redirect.msg");
-				file.createUnique(Components.interfaces.nsIFile.NORMAL_FILE_TYPE, 0666);
+				file.createUnique(Ci.nsIFile.NORMAL_FILE_TYPE, 0666);
 
 
 				// Поток для записи в файл
-				let foStream = Components.classes["@mozilla.org/network/file-output-stream;1"].
-					createInstance(Components.interfaces.nsIFileOutputStream);
+				let foStream = Cc["@mozilla.org/network/file-output-stream;1"].
+					createInstance(Ci.nsIFileOutputStream);
 
 				try {
 				    // write, create, truncate
@@ -347,7 +347,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
 				    foStream.write(msgBody, msgBody.length);
 
 				    // close stream
-				    if (foStream instanceof Components.interfaces.nsISafeOutputStream) {
+				    if (foStream instanceof Ci.nsISafeOutputStream) {
 					foStream.finish();
 				    } else {
 					foStream.close();
@@ -434,7 +434,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
 			msgSend.sendMessageFile(nextMessage['identity'], nextMessage['accKey'], nextMessage['cf'], nextMessage['file'], true, false, msgSend.nsMsgDeliverNow, null, this, null, "");
 		    } else { 	//the last message sent, lets show finel event message
 			//Removing the process and adding an Event using Process' attributes
-			process.state = Components.interfaces.nsIActivityProcess.STATE_COMPLETED;
+			process.state = Ci.nsIActivityProcess.STATE_COMPLETED;
 			gActivityManager.removeActivity(process.id);
 
 			// Выводим сообщение о завершении отправки
@@ -487,7 +487,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
 	};
 	let stopSending = function () {
 	    //Removing the process and adding an Event using Process' attributes
-	    process.state = Components.interfaces.nsIActivityProcess.STATE_COMPLETED;
+	    process.state = Ci.nsIActivityProcess.STATE_COMPLETED;
 	    gActivityManager.removeActivity(process.id);
 
 	    // Выводим сообщение о завершении отправки
@@ -611,9 +611,6 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
     //############### redirectListener ##################
 
     let redirectListener = function  () { // it listen for users called filter action and create instance of redirectRunner
-	//const Cc = Components.classes;
-	//const Ci = Components.interfaces;
-
 	//let reg_email_only = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+$/i; //only email in string
 	//let reg_email_with_sign = /^.*<[A-Z0-9._%+-]+@[A-Z0-9.-]+>$/i; //email with previous string
 
@@ -656,7 +653,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
 	    needsBody: false,
 	    //isAsync: true,
 	}
-	//this.logfilter = {id: "redirectfilter@irkit.ru#log",name: "Log to error console",apply: function(aMsgHdrs, aActionValue, aListener, aType, aMsgWindow) {let consoleService = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces.nsIConsoleService);consoleService.logStringMessage("!!!!!!!!!!!!NEXT FILTER!!!!!!!!!");}, isValidForType: function(type, scope) {return true;}, validateActionValue: function(value, folder, type){return null;},allowDuplicates: true,needsBody: false,}
+	//this.logfilter = {id: "redirectfilter@irkit.ru#log",name: "Log to error console",apply: function(aMsgHdrs, aActionValue, aListener, aType, aMsgWindow) {let consoleService = Cc["@mozilla.org/consoleservice;1"].getService(Ci.nsIConsoleService);consoleService.logStringMessage("!!!!!!!!!!!!NEXT FILTER!!!!!!!!!");}, isValidForType: function(type, scope) {return true;}, validateActionValue: function(value, folder, type){return null;},allowDuplicates: true,needsBody: false,}
 	this.start = function() {
 	    // add filter action to filter action list
 	    let filterService = Cc["@mozilla.org/messenger/services/filters;1"]

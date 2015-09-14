@@ -4,9 +4,7 @@
  * ***** END LICENSE BLOCK *****
  */
 
-const Cc = Components.classes;
-const Ci = Components.interfaces;
-
+const {classes: Cc, interfaces: Ci, results: Cr, utils: Cu} = Components;
 
 function createMenuItem(aLabel,aValue,aId) {
     const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
@@ -18,17 +16,19 @@ function createMenuItem(aLabel,aValue,aId) {
 }
 
 function onLoad() {
-    // insert accounts to list
-    let am = Components.classes["@mozilla.org/messenger/account-manager;1"].getService(Components.interfaces.nsIMsgAccountManager);
+    // insert managed accounts into drop-down list
+    let am = Cc["@mozilla.org/messenger/account-manager;1"].getService(Ci.nsIMsgAccountManager);
     let menupopupAccounts = document.getElementById("menupopupAccounts");
-    for (let i = 0; i < am.accounts.Count(); i++) { // go through all accounts and look for one that have root folder similar to first redirecting message root folder
-	let amacc = am.accounts.QueryElementAt(i, Ci.nsIMsgAccount);
+    for (let i = 0; i < am.accounts.length; i++) {
+	let amacc = am.accounts.queryElementAt(i, Ci.nsIMsgAccount);
 	try {
-	    let newItem = createMenuItem(amacc.defaultIdentity.identityName,amacc.key,amacc.key);
+	    let newItem = createMenuItem(amacc.defaultIdentity.identityName, amacc.key, amacc.key);
 	    menupopupAccounts.appendChild(newItem);
 	} catch (e) {}
     }
-    //// Load preferences or set default
+
+    // Load preferences or set default
+    //   local preferences in jsonPrefs
     let rootHbox = window.arguments[0];
     let jsonPrefs;
     try {
@@ -40,9 +40,11 @@ function onLoad() {
 	    jsonPrefs = new Array();
 	}
     }
-    let prefs = Cc["@mozilla.org/preferences-service;1"].
-	    getService(Ci.nsIPrefService);
+
+    //   default preferences in prefs
+    let prefs = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService);
     prefs = prefs.getBranch("extensions.redirectfilter.");
+
     try {
 	document.getElementById("checkKeepOriginalDate").setAttribute("checked", (typeof(jsonPrefs.keepOriginalDate) == "undefined") ? prefs.getBoolPref("keepOriginalDate.enabled") : jsonPrefs.keepOriginalDate);
     } catch (e) {}
@@ -73,7 +75,7 @@ function onLoad() {
 }
 
 function onAccept() {
-    let jsonPrefs = new Object();;
+    let jsonPrefs = new Object();
     try {
 	jsonPrefs.keepOriginalDate = document.getElementById("checkKeepOriginalDate").getAttribute("checked");
     } catch (e) {}
@@ -102,11 +104,16 @@ function onAccept() {
 	jsonPrefs.newReplyToHeader = document.getElementById("textNewReplyToHeader").value;
     } catch (e) {}
 
+    // save local preferences
     let rootHbox = window.arguments[0];
     jsonPrefs.redirectTo = rootHbox.firstChild.value;
+    let rawValue = JSON.stringify(jsonPrefs);
+    try {
+        rootHbox.setAttribute("value", rawValue);
+    } catch (e) {}
+    try {
+        rootHbox.value = rawValue;/**/
+    } catch (e) {}
 
-    rawValue = JSON.stringify(jsonPrefs);
-    rootHbox.setAttribute("value", rawValue);
-    rootHbox.value = rawValue;/**/
     return true;
 }
