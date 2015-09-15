@@ -1,9 +1,3 @@
-/*
- ***** BEGIN LICENSE BLOCK *****
- *
- * ***** END LICENSE BLOCK *****
- */
-
 const {classes: Cc, interfaces: Ci, results: Cr, utils: Cu} = Components;
 
 function createMenuItem(aLabel,aValue,aId) {
@@ -20,11 +14,11 @@ function onLoad() {
     let am = Cc["@mozilla.org/messenger/account-manager;1"].getService(Ci.nsIMsgAccountManager);
     let menupopupAccounts = document.getElementById("menupopupAccounts");
     for (let i = 0; i < am.accounts.length; i++) {
-	let amacc = am.accounts.queryElementAt(i, Ci.nsIMsgAccount);
-	try {
-	    let newItem = createMenuItem(amacc.defaultIdentity.identityName, amacc.key, amacc.key);
-	    menupopupAccounts.appendChild(newItem);
-	} catch (e) {}
+        let amacc = am.accounts.queryElementAt(i, Ci.nsIMsgAccount);
+        try {
+            let newItem = createMenuItem(amacc.defaultIdentity.identityName, amacc.key, amacc.key);
+            menupopupAccounts.appendChild(newItem);
+        } catch (e) {}
     }
 
     // Load preferences or set default
@@ -32,13 +26,13 @@ function onLoad() {
     let rootHbox = window.arguments[0];
     let jsonPrefs;
     try {
-	jsonPrefs = JSON.parse(rootHbox.getAttribute("value"));
+        jsonPrefs = JSON.parse(rootHbox.getAttribute("value"));
     } catch (e) {
-	try {
-	    jsonPrefs = JSON.parse(rootHbox.value);
-	} catch (e) {
-	    jsonPrefs = new Array();
-	}
+        try {
+            jsonPrefs = JSON.parse(rootHbox.value);
+        } catch (e) {
+            jsonPrefs = new Array();
+        }
     }
 
     //   default preferences in prefs
@@ -46,62 +40,62 @@ function onLoad() {
     prefs = prefs.getBranch("extensions.redirectfilter.");
 
     try {
-	document.getElementById("checkKeepOriginalDate").setAttribute("checked", (typeof(jsonPrefs.keepOriginalDate) == "undefined") ? prefs.getBoolPref("keepOriginalDate.enabled") : jsonPrefs.keepOriginalDate);
+        document.getElementById("checkKeepOriginalDate").setAttribute("checked", (typeof(jsonPrefs.keepOriginalDate) == "undefined") ? prefs.getBoolPref("keepOriginalDate.enabled") : jsonPrefs.keepOriginalDate);
     } catch (e) {}
     try {
-	document.getElementById("checkRedirectCCHeader").setAttribute("checked", (typeof(jsonPrefs.redirectCCHeader) == "undefined") ? prefs.getBoolPref("redirectCCHeader.enabled") : jsonPrefs.redirectCCHeader);
+        document.getElementById("checkRedirectCCHeader").setAttribute("checked", (typeof(jsonPrefs.redirectCCHeader) == "undefined") ? prefs.getBoolPref("redirectCCHeader.enabled") : jsonPrefs.redirectCCHeader);
     } catch (e) {}
     try {
-	document.getElementById("checkRedirectToHeader").setAttribute("checked", (typeof(jsonPrefs.redirectToHeader) == "undefined") ? prefs.getBoolPref("redirectToHeader.enabled") : jsonPrefs.redirectToHeader);
+        document.getElementById("checkRedirectToHeader").setAttribute("checked", (typeof(jsonPrefs.redirectToHeader) == "undefined") ? prefs.getBoolPref("redirectToHeader.enabled") : jsonPrefs.redirectToHeader);
     } catch (e) {}
     try {
-	document.getElementById("checkRedirectSequencesHeaders").setAttribute("checked", (typeof(jsonPrefs.redirectSequencesHeaders) == "undefined") ? prefs.getBoolPref("redirectSequencesHeaders.enabled") : jsonPrefs.redirectSequencesHeaders);
+        document.getElementById("checkRedirectSequencesHeaders").setAttribute("checked", (typeof(jsonPrefs.redirectSequencesHeaders) == "undefined") ? prefs.getBoolPref("redirectSequencesHeaders.enabled") : jsonPrefs.redirectSequencesHeaders);
     } catch (e) {}
     try {
-	document.getElementById("checkCopyToSent").setAttribute("checked", (typeof(jsonPrefs.copyToSent) == "undefined") ? prefs.getBoolPref("copyToSent.enabled") : jsonPrefs.copyToSent);
+        document.getElementById("checkCopyToSent").setAttribute("checked", (typeof(jsonPrefs.copyToSent) == "undefined") ? prefs.getBoolPref("copyToSent.enabled") : jsonPrefs.copyToSent);
     } catch (e) {}
     try {
-	document.getElementById("checkMarkAsForwarded").setAttribute("checked", (typeof(jsonPrefs.markAsForwarded) == "undefined") ? prefs.getBoolPref("markAsForwarded.enabled") : jsonPrefs.markAsForwarded);
+        document.getElementById("checkMarkAsForwarded").setAttribute("checked", (typeof(jsonPrefs.markAsForwarded) == "undefined") ? prefs.getBoolPref("markAsForwarded.enabled") : jsonPrefs.markAsForwarded);
     } catch (e) {}
     try {
-	document.getElementById("mlistAccount").selectedItem = document.getElementById(((typeof(jsonPrefs.account) == "undefined") ? prefs.getCharPref("account") : jsonPrefs.account));
+        document.getElementById("mlistAccount").selectedItem = document.getElementById(((typeof(jsonPrefs.account) == "undefined") ? prefs.getCharPref("account") : jsonPrefs.account));
     } catch (e) {}
     try {
-	document.getElementById("checkChangeReplyToHeader").setAttribute("checked", (typeof(jsonPrefs.changeReplyToHeader) == "undefined") ? prefs.getBoolPref("changeReplyToHeader.enabled") : jsonPrefs.changeReplyToHeader);
+        document.getElementById("checkChangeReplyToHeader").setAttribute("checked", (typeof(jsonPrefs.changeReplyToHeader) == "undefined") ? prefs.getBoolPref("changeReplyToHeader.enabled") : jsonPrefs.changeReplyToHeader);
     } catch (e) {}
     try {
-	document.getElementById("textNewReplyToHeader").value = (typeof(jsonPrefs.newReplyToHeader) == "undefined") ? prefs.getComplexValue("newReplyToHeader",Ci.nsISupportsString).data : jsonPrefs.newReplyToHeader; // read utf8 string preference
+        document.getElementById("textNewReplyToHeader").value = (typeof(jsonPrefs.newReplyToHeader) == "undefined") ? prefs.getComplexValue("newReplyToHeader",Ci.nsISupportsString).data : jsonPrefs.newReplyToHeader; // read utf8 string preference
     } catch (e) {}/**/
 }
 
 function onAccept() {
     let jsonPrefs = new Object();
     try {
-	jsonPrefs.keepOriginalDate = document.getElementById("checkKeepOriginalDate").getAttribute("checked");
+        jsonPrefs.keepOriginalDate = document.getElementById("checkKeepOriginalDate").getAttribute("checked");
     } catch (e) {}
     try {
-	jsonPrefs.redirectCCHeader = document.getElementById("checkRedirectCCHeader").getAttribute("checked");
+        jsonPrefs.redirectCCHeader = document.getElementById("checkRedirectCCHeader").getAttribute("checked");
     } catch (e) {}
     try {
-	jsonPrefs.redirectToHeader = document.getElementById("checkRedirectToHeader").getAttribute("checked");
+        jsonPrefs.redirectToHeader = document.getElementById("checkRedirectToHeader").getAttribute("checked");
     } catch (e) {}
     try {
-	jsonPrefs.redirectSequencesHeaders = document.getElementById("checkRedirectSequencesHeaders").getAttribute("checked");
+        jsonPrefs.redirectSequencesHeaders = document.getElementById("checkRedirectSequencesHeaders").getAttribute("checked");
     } catch (e) {}
     try {
-	jsonPrefs.copyToSent = document.getElementById("checkCopyToSent").getAttribute("checked");
+        jsonPrefs.copyToSent = document.getElementById("checkCopyToSent").getAttribute("checked");
     } catch (e) {}
     try {
-	jsonPrefs.markAsForwarded = document.getElementById("checkMarkAsForwarded").getAttribute("checked");
+        jsonPrefs.markAsForwarded = document.getElementById("checkMarkAsForwarded").getAttribute("checked");
     } catch (e) {}
     try {
-	jsonPrefs.account = document.getElementById("mlistAccount").selectedItem.value;
+        jsonPrefs.account = document.getElementById("mlistAccount").selectedItem.value;
     } catch (e) {}
     try {
-	jsonPrefs.changeReplyToHeader = document.getElementById("checkChangeReplyToHeader").getAttribute("checked");
+        jsonPrefs.changeReplyToHeader = document.getElementById("checkChangeReplyToHeader").getAttribute("checked");
     } catch (e) {}
     try {
-	jsonPrefs.newReplyToHeader = document.getElementById("textNewReplyToHeader").value;
+        jsonPrefs.newReplyToHeader = document.getElementById("textNewReplyToHeader").value;
     } catch (e) {}
 
     // save local preferences

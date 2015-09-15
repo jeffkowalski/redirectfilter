@@ -1,9 +1,3 @@
-/*
- ***** BEGIN LICENSE BLOCK *****
- *
- * ***** END LICENSE BLOCK *****
- */
-
 const {classes: Cc, interfaces: Ci, results: Cr, utils: Cu} = Components;
 
 function createMenuItem(aLabel,aValue,aId) {
@@ -20,17 +14,17 @@ function onLoad() {
     let am = Cc["@mozilla.org/messenger/account-manager;1"].getService(Ci.nsIMsgAccountManager);
     let menupopupAccounts = document.getElementById("menupopupAccounts");
     for (let i = 0; i < am.accounts.length; i++) {
-	let amacc = am.accounts.queryElementAt(i, Ci.nsIMsgAccount);
-	try {
-	    let newItem = createMenuItem(amacc.defaultIdentity.identityName, amacc.key, amacc.key);
-	    menupopupAccounts.appendChild(newItem);
-	} catch (e) {}
+        let amacc = am.accounts.queryElementAt(i, Ci.nsIMsgAccount);
+        try {
+            let newItem = createMenuItem(amacc.defaultIdentity.identityName, amacc.key, amacc.key);
+            menupopupAccounts.appendChild(newItem);
+        } catch (e) {}
     }
 
     // select previous account preference
     let prefs = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService);
     prefs = prefs.getBranch("extensions.redirectfilter.");
     try {
-	document.getElementById("mlistAccount").selectedItem = document.getElementById(prefs.getCharPref("account"));
+        document.getElementById("mlistAccount").selectedItem = document.getElementById(prefs.getCharPref("account"));
     } catch (e) {}
 }

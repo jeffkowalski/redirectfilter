@@ -1,11 +1,4 @@
 <?xml version="1.0"?>
-<!--
-/*
-***** BEGIN LICENSE BLOCK *****
-*
-* ***** END LICENSE BLOCK *****
-*/
--->
 <!DOCTYPE bindings SYSTEM "chrome://redirectfilter/locale/prefwindow.dtd">
 <bindings   id="redirectfilterBindings"
             xmlns="http://www.mozilla.org/xbl"
@@ -27,17 +20,17 @@
         <implementation>
             <constructor>
                 <![CDATA[
-			 let jsonPrefs;
-			 try {
-			     jsonPrefs = JSON.parse(this.hbox.value);
-			     if (typeof(jsonPrefs.redirectTo) != "undefined")
-			     this.textbox.value = jsonPrefs.redirectTo;
-			 } catch(e) {
-			     if (typeof(this.hbox.value) != "undefined")
-			     this.textbox.value = this.hbox.value; // compatibility with previous version
-			 }
-			 this.toolbarbutton.addEventListener("command", this.onCommand, false);
-			 //this.textbox.addEventListener("change", this.onChange, false);
+                         let jsonPrefs;
+                         try {
+                             jsonPrefs = JSON.parse(this.hbox.value);
+                             if (typeof(jsonPrefs.redirectTo) != "undefined")
+                             this.textbox.value = jsonPrefs.redirectTo;
+                         } catch(e) {
+                             if (typeof(this.hbox.value) != "undefined")
+                             this.textbox.value = this.hbox.value; // compatibility with previous version
+                         }
+                         this.toolbarbutton.addEventListener("command", this.onCommand, false);
+                         //this.textbox.addEventListener("change", this.onChange, false);
                 ]]>
             </constructor>
             <field name="hbox">document.getAnonymousNodes(this)[0]</field>
@@ -56,19 +49,19 @@
                 <body>
                     <![CDATA[
                              let jsonPrefs;
-          	             try {
-            		         jsonPrefs = JSON.parse(this.hbox.value);
-          	             } catch (e) {
-          		         jsonPrefs = new Object();
-          	             }
-          	             jsonPrefs.redirectTo = this.textbox.value;
+                             try {
+                                 jsonPrefs = JSON.parse(this.hbox.value);
+                             } catch (e) {
+                                 jsonPrefs = new Object();
+                             }
+                             jsonPrefs.redirectTo = this.textbox.value;
 
                              let rawValue = JSON.stringify(jsonPrefs);
                              try {
-             	                 this.hbox.setAttribute("value", rawValue);
+                                 this.hbox.setAttribute("value", rawValue);
                              } catch (e) {}
                              try {
-               	                 this.hbox.value = rawValue;
+                                 this.hbox.value = rawValue;
                              } catch (e) {}
                     ]]>
                 </body>

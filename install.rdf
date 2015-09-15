@@ -3,16 +3,16 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
     <Description about="urn:mozilla:install-manifest">
         <em:id>redirectfilter@irkit.ru</em:id>
-	<em:localized>
+        <em:localized>
             <Description>
                 <em:locale>ru-RU</em:locale>
                 <em:name>RedirectFilter</em:name>
-		<em:creator>Потёмкин Егор</em:creator>
+                <em:creator>Потёмкин Егор</em:creator>
                 <em:description>Действие перенаправить в фильтрах сообщений.</em:description>
             </Description>
         </em:localized>
         <em:version>0.1.8</em:version>
-	<em:type>2</em:type>
+        <em:type>2</em:type>
         <em:creator>Potiomkin Egor</em:creator>
         <em:description>Redirect action in the filters.</em:description>
         <em:name>RedirectFilter</em:name>
