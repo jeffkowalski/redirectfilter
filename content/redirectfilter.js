@@ -9,6 +9,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
 
     //############### redirectRunner ##################
     let redirectRunner = function  () { // redirect action class
+        // Application.console.log("** redirectfilter entering redirect runner");
 
 	// options
 	let options = new Array();
@@ -317,7 +318,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
 				    }
                                     // Resent-To will suppress GMail bcc to self
 				    if (newHdrs['Resent-To']==undefined) {
-					newHdrs['Resent-To'] = "Resent-To: "+msgIdentity.email;
+					newHdrs['Resent-To'] = "Resent-To: "+mimeEncode(options["redirectTo"]);
 				    }
 
 				    // change Reply-To header if option is set
@@ -344,7 +345,8 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm"); //to get profil
 					newHdrsStr = newHdrs[key] +"\r\n" + newHdrsStr;
 				    }
 				    newHdrsStr = handleNewLines(newHdrsStr);
-				    foStream.write(newHdrsStr, newHdrsStr.length);
+                                    foStream.write(newHdrsStr, newHdrsStr.length);
+                                    // Application.console.log(newHdrsStr);
 
 				    // lets handle body
 				    let msgBody = handleNewLines(wholeString.substring(bodyBeginingIndex,wholeString.length));
