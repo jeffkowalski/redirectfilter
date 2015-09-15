@@ -29,12 +29,12 @@
                 <![CDATA[
 			 let jsonPrefs;
 			 try {
-			 jsonPrefs = JSON.parse(this.hbox.value);
-			 if (typeof(jsonPrefs.redirectTo) != "undefined")
-			 this.textbox.value = jsonPrefs.redirectTo;
+			     jsonPrefs = JSON.parse(this.hbox.value);
+			     if (typeof(jsonPrefs.redirectTo) != "undefined")
+			     this.textbox.value = jsonPrefs.redirectTo;
 			 } catch(e) {
-			 if (typeof(this.hbox.value) != "undefined")
-			 this.textbox.value = this.hbox.value; // compatibility with previous version
+			     if (typeof(this.hbox.value) != "undefined")
+			     this.textbox.value = this.hbox.value; // compatibility with previous version
 			 }
 			 this.toolbarbutton.addEventListener("command", this.onCommand, false);
 			 //this.textbox.addEventListener("change", this.onChange, false);
@@ -48,7 +48,7 @@
                     <![CDATA[
                              let hbox1 = this.parentNode;
                              window.openDialog("chrome://redirectfilter/content/redirprefs.xul", "",
-                             "chrome, dialog, modal, resizable=yes", hbox1);
+                                               "chrome, dialog, modal, resizable=yes", hbox1);
                     ]]>
                 </body>
             </method>
@@ -57,14 +57,19 @@
                     <![CDATA[
                              let jsonPrefs;
           	             try {
-          		     jsonPrefs = JSON.parse(this.hbox.value);
+            		         jsonPrefs = JSON.parse(this.hbox.value);
           	             } catch (e) {
-          		     jsonPrefs = new Object();
+          		         jsonPrefs = new Object();
           	             }
           	             jsonPrefs.redirectTo = this.textbox.value;
-          	             let rawValue = JSON.stringify(jsonPrefs);
-          	             this.hbox.value = rawValue;
-          	             this.hbox.setAttribute("value", rawValue);
+
+                             let rawValue = JSON.stringify(jsonPrefs);
+                             try {
+             	                 this.hbox.setAttribute("value", rawValue);
+                             } catch (e) {}
+                             try {
+               	                 this.hbox.value = rawValue;
+                             } catch (e) {}
                     ]]>
                 </body>
             </method>
